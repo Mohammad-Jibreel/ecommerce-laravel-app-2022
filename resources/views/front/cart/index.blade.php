@@ -29,10 +29,11 @@
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Image</th>
-            <th scope="col" rowspan="3">Quantity</th>
-            <th scope="col">price</th>
             <th scope="col">size</th>
-             <th>total price for each product</th>
+            <th scope="col">price</th>
+            <th>total price for each product</th>
+
+            <th scope="col" rowspan="3">Quantity</th>
             <th scope="col" colspan="2">Action</th>
 
           </tr>
@@ -40,44 +41,40 @@
         <tbody>
 
 
-     @php $total=0;
+     @php $total_price=0;
      $i=0;
+
      @endphp
 
         @foreach ($carts->products as $cart)
 
-          <tr class="product_data">
+          <tr class="cart">
 
-            <th class="product_id">{{$cart->id }}</th>
+            <th>{{ ++$i }}</th>
             <th >{{$cart->name }}</th>
 
-             <td>            <img class="card-img-top"  src="{{asset('uploads/products/'.$cart->image)}}" alt="Card image cap" width="50px" height="50px">
+             <td>
+                       <img class="card-img-top"  src="{{asset('uploads/products/'.$cart->image)}}" alt="Card image cap" width="50px" height="50px">
             </td>
 
-            <td class="bage badge-info ring-black">
 
-                <input type="number"   id="quantity_id{{$cart->pivot->id}}" min="1" class="quantity qty-input" style="width:60px;" value="{{ $cart->pivot->quantity }}">
-
-
-            </td>
-
+            <td>{{ $cart->pivot->size }}</td>
 
 <td class="price">{{ $cart->price }}</td>
 
 
-                            <td>{{ $cart->pivot->size }}</td>
 
 
-                            <td class="total{{$cart->pivot->id}}"></td>
-                    <td>
-                        <form action="">
-                            @csrf
-                            @method('DELETE')
-                            <a product_id="{{$cart->pivot->id}}"  class="btn btn-danger delete text-white">X</a>
+                            <td class="subtotal"></td>
 
-                        </form>
+                            <td class="bage badge-info ring-black">
 
-                    </td>
+                                <input type="number"   id="quantity_id{{$cart->pivot->id}}" min="1" class="qty" style="width:60px;" value="{{ $cart->pivot->quantity }}">
+
+
+                            </td>
+
+
                     <td>
                         <form  id="update_category">
                             @csrf
@@ -87,18 +84,27 @@
 
                         </form>
                     </td>
+                    <td>
+                        <form action="">
+                            @csrf
+                            @method('DELETE')
+                            <a product_id="{{$cart->pivot->id}}"  class="btn btn-danger delete text-white">X</a>
+
+                        </form>
+
+                    </td>
 
 
           </tr>
-          @php $total+=$cart->pivot->quantity*$cart->price; @endphp
+          @php $total_price+=$cart->pivot->quantity*$cart->price; @endphp
 
           @endforeach
         </tbody>
 
 
       </table>
-      <div class="alert alert-danger">
-{{ $total }}
+      <div class="alert alert-success" id="total" style="display: none">
+
       </div>
 
 
@@ -209,27 +215,40 @@ $.each(response.errors, function (key, val) {
 
 
 <script>
-    $( document ).ready(function() {
-
-$(document).click("input",function( event ) {
-
-   var quantity=$(this).val();
-   var price=$('.price').html();
-   alert(price)
-   var total_price=quantity*price;
-  $('.total').html(total_price);
-var product_id=$(this).closest('.product_data').find('.product_id').val();
-alert(product_id);
-
-
-
+    $('.qty').change(function() {
+  updateQuantity(this);
 });
 
 
-});
+function updateQuantity(qtyInput) {
+  var cartRow = $(qtyInput).closest('tr');
+  var price = parseFloat($('.price', cartRow).text());
+  var quantity = $('.qty', cartRow).val();
+  var subtotal = $('.subtotal', cartRow);
+  var linePrice = price * quantity;
+  $(subtotal).text(linePrice.toFixed(2));
+  total_calculate() //call
+}
+
+function total_calculate() {
+  var total = 0;
+  //loop through subtotal
+  $(".cart .subtotal").each(function() {
+    //chck if not empty
+    var value = $(this).text() != "" ? parseFloat($(this).text()) : 0;
+    total += value; //add that value
+  })
+  if(total>0){
+    $('#total').show();
+    $("#total").text(total.toFixed(2))
+
+  }
+  //assign to total span
+
+}
+
 
 </script>
-
 
 
 
