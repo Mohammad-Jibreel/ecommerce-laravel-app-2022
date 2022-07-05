@@ -21,6 +21,7 @@ class UserAddressController extends Controller
     public function index()
     {
 
+
       //  $pivot_entries  =
       $products = DB::table('carts')
             ->join('users', 'carts.user_id', '=', 'users.id')
@@ -75,6 +76,9 @@ class UserAddressController extends Controller
 
         $userAddresses=UserAddress::where('user_id',$id)->get();
       return view('front.user.address',compact('userAddresses'));
+    }
+    public function total($total) {
+        return $total;
     }
 
     /**

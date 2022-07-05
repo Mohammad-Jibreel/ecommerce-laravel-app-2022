@@ -37,7 +37,10 @@ input[type="color"]::-webkit-color-swatch {
     <div class="card mb-3 mt-5 ml-auto">
         <div class="row g-0">
           <div class="col-md-4">
-            <img class="card-img-top"  src="{{asset('uploads/products/'.$product->image)}}" alt="Card image cap">
+            {{-- <img class="card-img-top"  src="{{asset('uploads/products/'.$product->image)}}" alt="Card image cap"> --}}
+            <img class="card-img-top"  src="{{$product->image}}" alt="Card image cap">
+
+
           </div>
 
           <div class="col-md-8">

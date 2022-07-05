@@ -31,14 +31,14 @@
 
                       <div class="form-group">
                         <label for="password">password</label>
-                        <input type="password" class="form-control"  name="password" id="password" value="{{$user->password}}" placeholder="please enter quantity">
+                        <input type="password" class="form-control"  name="password" id="password" value="" placeholder="please enter quantity">
                         <small id="password_error" class="form-text text-danger"></small>
 
                       </div>
 
                       <div class="form-group">
                         <label for="password">confirm password</label>
-                        <input type="password" class="form-control"  name="password_confirmation" id="password_confirmation" value="{{ $user->password }}">
+                        <input type="password" class="form-control"  name="password_confirmation" id="password_confirmation" value="">
                         <small id="password_confirmation_error" class="form-text text-danger"></small>
 
                       </div>

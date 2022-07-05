@@ -5,18 +5,19 @@
     deleted successfully
     </div>
 
+
       @if  (isset($orders) &&   count($orders)>0)
 
       <table class="table table-striped table-sm mt-2">
           <thead>
             <tr>
               <th>#</th>
-              <th>date of creation</th>
-              <th>date of creation</th>
-              <th>Number of items</th>
-              <th>current status</th>
-            <th>total cost</th>
-<th>action</th>
+              <th>Product Name</th>
+              <th>Product Image</th>
+              <th>Price</th>
+              <th>Qunatity</th>
+               <th>Total</th>
+
 
 
             </tr>
@@ -25,14 +26,22 @@
               $i=0;
           @endphp
           <tbody>
-             <tr>
-            @foreach ($orders as $order)
+           @foreach($orders as $order)
+               @foreach($order->products as $product)
+
+
               <div class="row">
-          <tr class="offerRow{{$order->id}}">
-          <td>{{$order->id}}</td>
-          <td>{{$order->name}}</td>
-          <td>{{ $order->status }}</td>
+          <tr class="offerRow{{$product->id}}">
+            <td>{{$product->id}}</td>
+
+          <td>{{$product->name}}</td>
+          <td><img src="{{$product->image}}" alt="" width="50px" height="50px"></td>
+          <td>{{ $product->price }}</td>
+          <th>{{ $product->quantity }}</th>
+
           <td>{{$order->total_order_cost}}</td>
+
+          <th></th>
 
 
 
@@ -40,6 +49,7 @@
 
 
             </tr>
+            @endforeach
             @endforeach
               </div>
 

@@ -24,15 +24,15 @@ Products
           <tr>
             <th>#</th>
             <th>Product Name</th>
-            <th>description</th>
+            <th style="width:1px; white-space:nowrap;" >description</th>
           <th>price</th>
             <th>image</th>
-            <th colspan="" >size</th>
+            <th colspan="3">size</th>
             <th>quantity</th>
             <th>color</th>
 <th>Category Name</th>
 
-            <th colspan="2" class="text-justify">action</th>
+            <th colspan="2">action</th>
 
           </tr>
         </thead>
@@ -42,60 +42,44 @@ Products
         <tbody>
 
           @foreach ($products as $product)
-            <div class="row">
  <tr class="product{{$product->id}}">
-    <div class="col">
         <td>{{++$i}}</td>
 
-    </div>
-    <div class="col">
         <td>{{$product->name}}</td>
 
-    </div>
-    <div class="col">
         <td>{{$product->description}}</td>
 
-    </div>
-<div class="col">
     <td>{{$product->price}}</td>
 
-</div>
-<div class="col">
     <td>
-        <img src="{{asset('uploads/products/'.$product->image)}}" width="50px" height="50px" alt="">
+        {{-- <img src="{{asset('uploads/products/'.$product->image)}}" width="50px" height="50px" alt=""> --}}
+                <img src="{{$product->image}}" width="50px" height="50px" alt="">
+
         </td>
 
-</div>
 
-<div class="col">
+
 
     @foreach ($product->prodcuts_attributes as $item)
 
-    <td>[{{ $item->size  }}]</td>
+    <td style="width:1px; white-space:nowrap;">[{{ $item->size  }}]</td>
 
 
 
 
     @endforeach
-</div>
-       <div class="col">
+
         <td>{{$product->quantity}}</td>
 
-       </div>
 
-<div class="col">
     <td><input type="color" name="" id="" value="{{ $product->color }}" disabled></td>
 
-</div>
 
-<div class="col">
     <td>{{ isset($product->SubCategory) ?   $product->SubCategory->name : '' }} </td>
 
-</div>
 
 
-<div class="col">
-    <td>
+    <td style="width:1px; white-space:nowrap;">
 
 
 
@@ -103,13 +87,11 @@ Products
         <a href="{{route('admin.product.edit',$product->id)}}"  class="btn btn-success">edit</a>
 
 </td>
-</div>
 
 
 
           </tr>
           @endforeach
-            </div>
 
 
 

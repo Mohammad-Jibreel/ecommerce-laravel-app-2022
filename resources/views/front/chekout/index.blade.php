@@ -1,7 +1,15 @@
 
   <script src="//geodata.solutions/includes/countrystatecity.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+<style>
+      /* footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+} */
+</style>
 </head>
 <body>
     @extends('layouts.user')
@@ -41,21 +49,21 @@
               </span>
             </h4>
 
-            <ul class="list-group mb-3">
+            <ul class="list-group mb-3" id="dom">
                 @foreach ($products as $product)
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <li  class="list-group-item d-flex justify-content-between lh-condensed cartRow">
                     <div>
                        <h6 class="my-0">{{ $product->name }}</h6>
                       <small class="text-muted">{{ $product->description }}</small>
                     </div>
-                    <span class="text-muted">{{$product->price*$product->quantity }}</span>
+                    <span class="text-muted total_price" >{{$product->price*$product->quantity }}</span>
                   </li>
                 @endforeach
 
 
               <li class="list-group-item d-flex justify-content-between">
-                <span>Total </span>
-                <strong>$20</strong>
+                <span >Total </span>
+                <strong class="subtotal" id="total_cart"></strong>
               </li>
             </ul>
 
@@ -139,6 +147,14 @@
                   </div>
                 </div>
             </form>
+            <form id="save_order">
+                @csrf
+                <input type="hidden" name="user_id" value="{{Auth::id()}}" id="user_id">
+
+                <input type="hidden" name="status" value="0">
+                <input type="hidden" name="quantity" value="{{ count($products) }}" id="quantity">
+                <input type="hidden" name="total_order_cost" value="" id="total_order_cost">
+            </form>
             <a href="{{ route('cart.index') }}" class="btn btn-primary p-2 m-2">back</a>
             <button id="save" style="display:none" class="btn btn-primary p-2 m-2">Submit</button>
 
@@ -214,6 +230,9 @@ $.each(response.errors, function (key, val) {
         });
     });
 </script>
+
+
+
 <script>
 
   function ajaxCall() {
@@ -489,6 +508,7 @@ jQuery(function() {
             cache: false,
             success: function (data) {
                 if (data.status == true) {
+
                  $('#message_success').show();
 
 
@@ -496,6 +516,7 @@ jQuery(function() {
 
                 }
             }, error: function (reject) {
+
 
 var response = $.parseJSON(reject.responseText);
 console.log(response)
@@ -514,7 +535,74 @@ $.each(response.errors, function (key, val) {
 
 </script>
 
+<script>
 
+
+var value=0;
+
+$(document).ready(function(){
+
+    var l=document.getElementsByClassName("total_price").length;
+    for(var i=0 ; i<l;i++){
+    var testTarget = document.getElementsByClassName("total_price")[i].innerHTML; // the first element, as we wanted
+    testTarget=parseInt(testTarget);
+     value+=testTarget;
+    }
+
+
+$('#total_cart').text(value);
+document.getElementById('total_order_cost').value=value;
+
+
+
+
+});
+
+
+$(document).on('click', '#save', function (e) {
+           e.preventDefault();
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+           var formData = new FormData($('#save_order')[0]);
+           $.ajax({
+               type: 'post',
+               url: "{{route('order.store')}}",
+
+               data: formData,
+               processData: false,
+               contentType: false,
+               cache: false,
+               success: function (data) {
+                   if (data.status == true) {
+                    $('#message_success').show();
+
+
+
+                   }
+               }, error: function (reject) {
+
+   var response = $.parseJSON(reject.responseText);
+   console.log(response)
+   $.each(response.errors, function (key, val) {
+       $("#"+key+'_error').text(val[0])
+
+   });
+
+
+
+
+   }
+           });
+       });
+
+
+
+
+
+</script>
 
 </body>
 </html>

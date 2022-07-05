@@ -14,6 +14,7 @@
               <th>date of creation</th>
               <th>current status</th>
             <th>total cost</th>
+            <th>Number of items in order</th>
 <th>action</th>
 
 
@@ -31,6 +32,7 @@
           <td>{{$order->created_at}}</td>
           <td>{{ $order->status }}</td>
           <td>{{$order->total_order_cost}}</td>
+          <td>{{ $order->quantity }}</td>
 
 
  <td> <a href="{{route('order.show',$order->id)}}" class="btn btn-primary">show details</a></td>

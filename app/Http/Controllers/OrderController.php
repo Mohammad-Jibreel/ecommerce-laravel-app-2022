@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Order_product;
+use App\Models\Product;
+use App\Models\ProductsAttribtues;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,9 +21,15 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders=Order::with('products')->where('id',Auth::id())->paginate(15);
-     return view('front.order.index',compact('orders'));
+        $orders=Order::with('products')->where('user_id',Auth::id())->paginate(15);
+
+        return view('front.order.index',compact('orders'));
+
+
+
+
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -39,7 +49,37 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $order=Order::create($request->all());
+
+
+        $product_orders=Cart::where('user_id',$request->user_id)->get();
+        foreach($product_orders as $product_or)
+        $product_order=Order_product::create([
+            'product_id'=>$product_or->product_id,
+            'order_id'=>$order->id,
+
+        ]);
+
+
+
+        if ($order && $product_order){
+            Cart::where('user_id',Auth::id())->delete();
+
+
+            return response()->json([
+                'status' => true,
+                'msg' => 'تم الحفظ بنجاح',
+            ]);
+          }
+        else
+            return response()->json([
+
+                'status' => false,
+                'msg' => 'فشل الحفظ برجاء المحاوله مجددا',
+
+
+            ]);
+
     }
 
     /**
@@ -50,9 +90,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $orders=Order::with('products')->get();
-
-
+         $orders=Order::with('products')->where('id',$id)->paginate(15);
         return view('front.order.show',compact('orders'));
     }
 

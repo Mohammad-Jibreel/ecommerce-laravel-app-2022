@@ -131,13 +131,12 @@
             <div class="card h-80">
               <img src="https://preview.colorlib.com/theme/estore/assets/img/categori/xproduct1.png.pagespeed.ic.1xDh2tYQRf.webp" class="card-img-top" alt="Palm Springs Road"/>
               <div class="card-body">
-                <h5 class="card-title">product Name</h5>
+                <h5 class="card-title"></h5>
                 <p class="card-text">
-                dasaodkd
+
                 </p>
               </div>
               <div class="card-footer">
-                <small class="text-muted">rating</small>
               </div>
             </div>
           </div>
@@ -145,13 +144,13 @@
             <div class="card h-80">
               <img src="https://preview.colorlib.com/theme/estore/assets/img/categori/xproduct2.png.pagespeed.ic.eUEI6NamxP.webp" class="card-img-top" alt="Palm Springs Road"/>
               <div class="card-body">
-                <h5 class="card-title">product Name</h5>
+                <h5 class="card-title"></h5>
                 <p class="card-text">
-                price
+
                 </p>
               </div>
               <div class="card-footer">
-                <small class="text-muted">rating</small>
+                <small class="text-muted"></small>
               </div>
             </div>
           </div>
@@ -159,13 +158,13 @@
           <div class="card h-80">
             <img src="https://preview.colorlib.com/theme/estore/assets/img/categori/xproduct3.png.pagespeed.ic.7lSBCQxjjP.webp" class="card-img-top" alt="Palm Springs Road"/>
             <div class="card-body">
-              <h5 class="card-title">product Name</h5>
+              <h5 class="card-title"></h5>
               <p class="card-text">
-              price
+
               </p>
             </div>
             <div class="card-footer">
-              <small class="text-muted">rating</small>
+              <small class="text-muted"></small>
             </div>
           </div>
         </div>
@@ -196,7 +195,6 @@
                     </p>
                   </div>
                   <div class="card-footer">
-                    <small class="text-muted">rating</small>
                   </div>
                 </div>
               </div>
@@ -210,7 +208,6 @@
                     </p>
                   </div>
                   <div class="card-footer">
-                    <small class="text-muted">rating</small>
                   </div>
                 </div>
               </div>
@@ -224,7 +221,6 @@
                   </p>
                 </div>
                 <div class="card-footer">
-                  <small class="text-muted">rating</small>
                 </div>
               </div>
             </div>
@@ -250,7 +246,6 @@
                 </p>
               </div>
               <div class="card-footer">
-                <small class="text-muted">rating</small>
               </div>
             </div>
           </div>
@@ -264,7 +259,6 @@
                 </p>
               </div>
               <div class="card-footer">
-                <small class="text-muted">rating</small>
               </div>
             </div>
           </div>
@@ -278,7 +272,6 @@
               </p>
             </div>
             <div class="card-footer">
-              <small class="text-muted">rating</small>
             </div>
           </div>
         </div>

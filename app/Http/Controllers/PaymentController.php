@@ -36,11 +36,13 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
+        return $request;
        Payment::create([
-         'user_id'=>Auth::id(),
-         'order_id'=>'1',
+
+        'order_id'=>'1',
          'status'=>$request->cash
        ]);
+
     }
 
     /**

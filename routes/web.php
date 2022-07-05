@@ -21,6 +21,8 @@ Route::resource('dashboard',DashboardController::class);
 Route::resource('product',ProductController::class);
 Route::resource('cart',CartController::class);
 Route::resource('checkout',UserAddressController::class);
+Route::get('checkout/total/{id}',[UserAddressController::class,'total']);
+
 Route::resource('user',UserController::class);
 Route::resource('order',OrderController::class);
 Route::resource('address',UserAddressController::class);

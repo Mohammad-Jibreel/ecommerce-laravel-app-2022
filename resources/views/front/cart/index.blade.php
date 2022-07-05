@@ -1,15 +1,17 @@
 @extends('layouts.user')
 @section('content')
+<style>
+      footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+</style>
 <h1 class="text-info font-weight-bold text-center">Cart Page</h1>
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<div class="container">
-    <div class="progress" style="height: 1px;">
-        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-      </div>
-      <div class="progress" style="height: 20px;">
-        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-      </div>
-</div>
+
   <div class="container mt-3 p-2 h-100">
 
     <div class="alert alert-success h-100"  id="success_msg" style="display: none">
@@ -21,9 +23,16 @@
         </div>
         @if (isset($carts) && count($carts->products)>0)
 
+        <div class="container ">
+            <div class="progress" style="height: 1px;">
+                <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <div class="progress" style="height: 20px;">
+                <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+        </div>
 
-
-    <table class="table border border-info rounded">
+    <table class="table border border-info rounded mt-2">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -41,7 +50,7 @@
         <tbody>
 
 
-     @php $total_price=0;
+     @php
      $i=0;
 
      @endphp
@@ -54,7 +63,9 @@
             <th >{{$cart->name }}</th>
 
              <td>
-                       <img class="card-img-top"  src="{{asset('uploads/products/'.$cart->image)}}" alt="Card image cap" width="50px" height="50px">
+                       {{-- <img class="card-img-top"  src="{{asset('uploads/products/'.$cart->image)}}" alt="Card image cap" width="50px" height="50px"> --}}
+<img class="card-img-top"  src="{{$cart->image}}" width="50px" height="50px" alt="Card image cap">
+
             </td>
 
 
@@ -96,33 +107,22 @@
 
 
           </tr>
-          @php $total_price+=$cart->pivot->quantity*$cart->price; @endphp
 
           @endforeach
         </tbody>
 
 
       </table>
-      <div class="alert alert-success" id="total">
-        <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-muted">Your cart</span>
+      <div class="alert alert-success" id="total" style="display:none" id="">
 
-          </h4>
-
-          <ul class="list-group mb-3">
-
-              <li class="list-group-item d-flex justify-content-between lh-condensed">
-                  <div>
-                     <h6 class="my-0">Total Price</h6>
-                    <small class="text-muted" id="total"></small>
-                  </div>
 
       </div>
 
 
       </div>
-      <div class="text-center">
-        <a href="{{route('checkout.index')}}" id="update" class="btn btn-primary float-sm-right">Continue to checkout</a>
+      <div class="text-center list">
+
+        <a href="checkout" id="update" class="btn btn-primary float-sm-right">Continue to checkout</a>
 
       </div>
 
@@ -227,10 +227,26 @@ $.each(response.errors, function (key, val) {
 
 
 <script>
-    $('.qty').change(function() {
-  updateQuantity(this);
-});
+  $(".qty").on({
+  mouseenter: function(){
+    updateQuantity(this);
+  },
+  mouseleave: function(){
+    updateQuantity(this);
+  },
+  click: function(){
+    updateQuantity(this);
+  },
+  blur:function(){
+    updateQuantity(this);
 
+  },
+  focus:function(){
+    updateQuantity(this);
+  }
+
+
+});
 
 function updateQuantity(qtyInput) {
   var cartRow = $(qtyInput).closest('tr');
@@ -255,9 +271,10 @@ function total_calculate() {
     $("#total").text(total.toFixed(2))
 
   }
-  //assign to total span
 
 }
+
+
 
 
 </script>
@@ -266,3 +283,4 @@ function total_calculate() {
 
 
 @endsection
+

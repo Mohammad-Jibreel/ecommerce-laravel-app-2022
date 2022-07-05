@@ -44,7 +44,7 @@ input[type="radio"] {
         <select class="form-select form-select-md w-25 m-2" id="category" aria-label="Default select example">
             <option selected>select category </option>
             @foreach ($categories as $category)
-            <option value="{{ $category->id }}">{{ $category->name }}</option>
+            <option value="{{$category->id}}" id="category{{$category->id}}">{{$category->name}}</option>
 
             @endforeach
           </select>
@@ -141,7 +141,17 @@ input[type="radio"] {
 
 @endsection
 <script src="{{ asset('js/jquery.js') }}"></script>
-{{-- //          var product_id =  $(this).attr('product_id'); --}}
+
+<script>
+    $(document).ready(function(){
+       $("#category1").click(function(){
+        alert('te');
+       })
+    })
+</script>
+
+
+
 
 <script>
     $(document).on('click', '.save', function (e) {
@@ -183,5 +193,6 @@ $.each(response.errors, function (key, val) {
 
 
 </script>
+
 
 
