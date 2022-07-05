@@ -103,7 +103,19 @@
 
 
       </table>
-      <div class="alert alert-success" id="total" style="display: none">
+      <div class="alert alert-success" id="total">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Your cart</span>
+
+          </h4>
+
+          <ul class="list-group mb-3">
+
+              <li class="list-group-item d-flex justify-content-between lh-condensed">
+                  <div>
+                     <h6 class="my-0">Total Price</h6>
+                    <small class="text-muted" id="total"></small>
+                  </div>
 
       </div>
 
