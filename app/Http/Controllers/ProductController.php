@@ -14,14 +14,14 @@ class ProductController extends Controller
     {
 
         // $products=Product::with('prodcuts_attributes')->get();
-        $query=Product::query();
+        $products=Product::all();
         $categories=Category::all();
-        if($request->ajax()){
-           $products= $query->where(['category_id'=>$request->category])->get();
+        // if($request->ajax()){
+        //    $products= $query->where(['category_id'=>$request->category])->get();
 
-            return response()->json(['products'=>$products]);
-        }
-        $products=$query->get();
+        //     return response()->json(['products'=>$products]);
+        // }
+        // $products=$query->get();
         return view('front.products.index',compact('products','categories'));
     }
 

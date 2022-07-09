@@ -9,6 +9,7 @@
     <link rel="icon" href="https://getbootstrap.com/docs/4.1/assets/img/favicons/favicon.ico">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+
     <title>Dashboard Template for Bootstrap</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/dashboard/">

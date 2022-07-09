@@ -31,7 +31,7 @@ class OrderProductsSeeder extends Seeder
                                 ]);
         Order_product::create([
             'product_id'=>'2',
-            'order_id'=>'2',
+            'order_id'=>'1',
 
                     ]);
 

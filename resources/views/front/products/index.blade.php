@@ -51,7 +51,7 @@ input[type="radio"] {
 
 
 
-        <select class="form-select form-select-md w-25 m-2" id="product_id" aria-label="Default select example">
+        <select class="form-select form-select-md w-25 m-2" aria-label="Default select example">
             <option selected>select product </option>
             @foreach ($products as $product)
             <option value="{{ $product->id }}">{{ $product->name }}</option>
@@ -61,7 +61,7 @@ input[type="radio"] {
 
 
 
-    <select class="form-select form-select-md w-25 m-2" id="product_id" aria-label="Default select example">
+    <select class="form-select form-select-md w-25 m-2"  aria-label="Default select example">
         <option value="">Select Price Range</option>
         <option value="0-100">0-100</option>
         <option value="100-300">100-300</option>
@@ -105,9 +105,9 @@ input[type="radio"] {
 
 
                 @foreach ($product->prodcuts_attributes as $item)
-                <input type="radio" class="btn-check" name="size"   id="{{$item->id}}" value="{{$item->size }}" autocomplete="off">
+                <input type="radio" class="btn-check" name="size"   id="{{$item->size}}" value="{{$item->size }}" autocomplete="off">
 
-                <label class="btn btn-primary btn-group-sm" for="{{$item->id}}">{{ $item->size }}</label>
+                <label class="btn btn-primary btn-group-sm" for="{{$item->size}}">{{ $item->size }}</label>
 
                 @endforeach
 
@@ -115,7 +115,7 @@ input[type="radio"] {
               </div>
               <p class="card-text"><small id="size_error{{$product->id}}"></small></p>
               <div class="mt-2" style="margin-left:40%">
-                <input type="number" name="quantity"  min="1" oninput="this.value = Math.abs(this.value)"  id="quantity" style="width:60px;">
+                <input type="number" name="quantity"  min="1" id="quantity" style="width:60px;">
               </div>
               <p class="card-text"><small id="quantity_error{{$product->id}}"></small></p>
 
@@ -175,14 +175,19 @@ input[type="radio"] {
 
 
                 }
-            }, error: function (reject) {
-
-var response = $.parseJSON(reject.responseText);
-console.log(response)
+            }, error: function (error) {
+           if(error.status==401){
+           alert('please login and try to add products to cart');
+           window.location.href="/login";
+           }
+           else {
+var response = $.parseJSON(error.responseText);
+console.log(error)
 $.each(response.errors, function (key, val) {
     $("#"+key+'_error'+product_id).text(val[0])
 
 });
+           }
 
 
 
